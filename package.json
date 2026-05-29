@@ -1,0 +1,25 @@
+{
+  "name": "hotella-rest-api",
+  "version": "1.0.0",
+  "description": "Express backend for the hotell Booking and reservation system",
+  "keywords": [
+    "hotella"
+  ],
+  "homepage": "https://github.com/VimuthWickramasinghe/Hotella-REST-API#readme",
+  "bugs": {
+    "url": "https://github.com/VimuthWickramasinghe/Hotella-REST-API/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VimuthWickramasinghe/Hotella-REST-API.git"
+  },
+  "author": "VimuthWickramasinghe",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "/"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
