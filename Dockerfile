@@ -4,14 +4,22 @@ FROM node:18-alpine
 # Set the working directory in the container
 WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json
+# To leverage Docker cache, copy the package files first
 COPY package*.json ./
 
-# Install dependencies (assuming you have initialized npm in this folder)
+# Also copy the workspace structure so npm install can find the nested package.json files
+COPY services/api-gateway/package*.json ./services/api-gateway/
+COPY services/auth-service/package*.json ./services/auth-service/
+COPY services/email-service/package*.json ./services/email-service/
+COPY services/event-planing-and-booking_service/package*.json ./services/event-planing-and-booking_service/
+COPY services/external-payment-api/package*.json ./services/external-payment-api/
+COPY services/room_booking-service/package*.json ./services/room_booking-service/
+
+# Install dependencies for the root and all workspaces
 RUN npm install
 
 # Copy the rest of the application code
 COPY . .
 
-# The command to run your app
+# Let docker-compose override the CMD for each microservice
 CMD ["node", "server.js"]

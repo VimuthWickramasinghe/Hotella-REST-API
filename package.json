@@ -15,17 +15,13 @@
   },
   "author": "VimuthWickramasinghe",
   "type": "commonjs",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "/"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "docker-compose up --build"
   },
-  // Workspace to save local space for development. this will make all the node_modular saved in to the root file
   "workspaces": [
-    "auth-service",
-    "room-service",
-    "booking-service",
-    "services/api-gateway",
-    "shared"
+    "services/*"
   ],
   "dependencies": {
     "express": "^5.2.1"

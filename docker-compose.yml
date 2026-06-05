@@ -1,8 +1,22 @@
 version: "3.8"
 
 services:
+  api-gateway:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    command: node services/api-gateway/index.js
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+    restart: unless-stopped
+
   auth-service:
-    build: ./auth-service
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    command: node services/auth-service/index.js
     ports:
       - "5001:5001"
     environment:
@@ -10,7 +24,10 @@ services:
     restart: unless-stopped
 
   room-service:
-    build: ./room-service
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    command: node services/room_booking-service/index.js
     ports:
       - "5002:5002"
     environment:
@@ -18,11 +35,36 @@ services:
     restart: unless-stopped
 
   booking-service:
-    build: ./booking-service
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    command: node services/event-planing-and-booking_service/index.js
     ports:
       - "5003:5003"
     environment:
       - PORT=5003
+    restart: unless-stopped
+
+  email-service:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    command: node services/email-service/index.js
+    ports:
+      - "5004:5004"
+    environment:
+      - PORT=5004
+    restart: unless-stopped
+
+  external-payment-api:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    command: node services/external-payment-api/index.js
+    ports:
+      - "5005:5005"
+    environment:
+      - PORT=5005
     restart: unless-stopped
 
 # Add databases (like MongoDB, PostgreSQL, or Redis) down here later!
