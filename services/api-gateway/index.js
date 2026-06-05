@@ -16,6 +16,7 @@ const services = {
     '/api/auth': 'http://auth-service:5001',
     '/api/rooms': 'http://room_booking-service:5002',
     '/api/bookings': 'http://booking-service:5003',
+    '/api/events': 'http://booking-service:5003',
     '/api/emails': 'http://email-service:5004',
     '/api/payments': 'http://external-payment-api:8080'
 };

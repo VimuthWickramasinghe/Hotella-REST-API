@@ -50,6 +50,9 @@ services:
       - "5003:5003"
     environment:
       - PORT=5003
+      - MONGO_URI=mongodb://mongodb:27017/hotella_bookings
+    depends_on:
+      - mongodb
     restart: unless-stopped
 
   email-service:
