@@ -27,7 +27,7 @@ services:
       - mongodb
     restart: unless-stopped
 
-  room-service:
+  room_booking-service:
     build: 
       context: .
       dockerfile: Dockerfile
@@ -36,6 +36,9 @@ services:
       - "5002:5002"
     environment:
       - PORT=5002
+      - MONGO_URI=mongodb://mongodb:27017/hotella_rooms
+    depends_on:
+      - mongodb
     restart: unless-stopped
 
   booking-service:
