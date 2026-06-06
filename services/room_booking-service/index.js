@@ -15,13 +15,14 @@ mongoose.connect(MONGO_URI)
   .then(() => console.log('Room Booking Service: Connected to MongoDB'))
   .catch((err) => console.error('Room Booking Service: MongoDB connection error:', err));
 
+// Health check MUST be before general routes to avoid catching /health as an :id
+app.get('/api/rooms/health', (req, res) => {
+    res.json({ service: 'room-booking-service', status: 'OK', db_connected: mongoose.connection.readyState === 1 });
+});
+
 // Routes
 // Note: The API Gateway forwards requests from /api/rooms to this service.
 app.use('/api/rooms', roomRoutes);
-
-app.get('/health', (req, res) => {
-    res.json({ service: 'room-booking-service', status: 'OK', db_connected: mongoose.connection.readyState === 1 });
-});
 
 app.listen(PORT, () => {
     console.log(`room-booking-service running on port ${PORT}`);

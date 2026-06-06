@@ -16,15 +16,16 @@ mongoose.connect(MONGO_URI)
   .then(() => console.log('Event Planning & Booking Service: Connected to MongoDB'))
   .catch((err) => console.error('Event Planning & Booking Service: MongoDB connection error:', err));
 
+// Health check MUST be before general routes to avoid catching /health as an :id
+app.get('/api/bookings/health', (req, res) => {
+    res.json({ service: 'event-planing-and-booking-service', status: 'OK', db_connected: mongoose.connection.readyState === 1 });
+});
+
 // Routes
 // Note: API Gateway forwards requests from /api/bookings to this service.
 // Let's add /events here as well, we may need to adjust gateway mapping for events if needed.
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/events', eventRoutes);
-
-app.get('/health', (req, res) => {
-    res.json({ service: 'event-planing-and-booking-service', status: 'OK', db_connected: mongoose.connection.readyState === 1 });
-});
 
 app.listen(PORT, () => {
     console.log(`event-planing-and-booking-service running on port ${PORT}`);

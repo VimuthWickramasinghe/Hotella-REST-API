@@ -18,7 +18,18 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "docker-compose up --build"
+    "start": "docker-compose up --build",
+    "dev": "concurrently \"npm run dev:gateway\" \"npm run dev:auth\" \"npm run dev:rooms\" \"npm run dev:bookings\" \"npm run dev:email\" \"npm run dev:payments\"",
+    "dev:gateway": "nodemon services/api-gateway/index.js",
+    "dev:auth": "nodemon services/auth-service/index.js",
+    "dev:rooms": "nodemon services/room_booking-service/index.js",
+    "dev:bookings": "nodemon services/event-planing-and-booking_service/index.js",
+    "dev:email": "nodemon services/email-service/index.js",
+    "dev:payments": "nodemon services/external-payment-api/index.js"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.1",
+    "nodemon": "^3.0.1"
   },
   "workspaces": [
     "services/*"
