@@ -39,9 +39,9 @@ services:
       - "5002:5002"
     environment:
       - PORT=5002
-      - MONGO_URI=mongodb://mongodb:27017/hotella_rooms
+      - MONGO_URI=mongodb://mongodb-rooms:27017/hotella_rooms
     depends_on:
-      - mongodb
+      - mongodb-rooms
     restart: unless-stopped
 
   booking-service:
@@ -53,9 +53,9 @@ services:
       - "5003:5003"
     environment:
       - PORT=5003
-      - MONGO_URI=mongodb://mongodb:27017/hotella_bookings
+      - MONGO_URI=mongodb://mongodb-bookings:27017/hotella_bookings
     depends_on:
-      - mongodb
+      - mongodb-bookings
     restart: unless-stopped
 
   email-service:
@@ -85,13 +85,25 @@ services:
       - PORT=5005
     restart: unless-stopped
 
-  mongodb:
+  mongodb-auth:
     image: mongo:6.0
-    ports:
-      - "27017:27017"
     volumes:
-      - mongo_data:/data/db
+      - mongo_auth_data:/data/db
+    restart: unless-stopped
+
+  mongodb-rooms:
+    image: mongo:6.0
+    volumes:
+      - mongo_rooms_data:/data/db
+    restart: unless-stopped
+
+  mongodb-bookings:
+    image: mongo:6.0
+    volumes:
+      - mongo_bookings_data:/data/db
     restart: unless-stopped
 
 volumes:
-  mongo_data:
+  mongo_auth_data:
+  mongo_rooms_data:
+  mongo_bookings_data:
